@@ -9,6 +9,9 @@ models:
           tests:
             - unique
             - not_null
+        - name: test_null
+          tests:
+            - not_null
 
     - name: stg_orders
       description: Staged order data from our jaffle shop app.
@@ -16,16 +19,28 @@ models:
         - name: order_id
           description: Primary key for orders.
           tests:
+            # - relationships:
+            #     to: ref('stg_customers')
+            #     field: customer_id
+            - unique
+            - not_null
+
+        - name: customer_id
+          description: The foreign key for customers.
+          tests:
             - relationships:
-                to: ref('stg_customers')
-                field: customer_id
+                arguments:
+                  to: ref('stg_customers')
+                  field: customer_id
+
         - name: status
           description: '{{ doc("order_status") }}'
           tests:
             - accepted_values:
-                values:
-                  - completed
-                  - shipped
-                  - returned
-                  - placed
-                  - return_pending
+                arguments:
+                  values:
+                    - completed
+                    - shipped
+                    - returned
+                    - placed
+                    - return_pending
