@@ -11,3 +11,10 @@ models:
               arguments:
                 to: ref('stg_orders')
                 field: order_id
+      - name: amount
+        description: rounded dollar amount of order
+        data_tests:
+          # - greater_than_five
+          - assert_dollars_spent_greater_than_one:
+              arguments:
+                group_by_column: customer_id
