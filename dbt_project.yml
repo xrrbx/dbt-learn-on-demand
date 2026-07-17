@@ -38,3 +38,7 @@ models:
     marts:
       +materialized: table
       
+# Add this to the bottom of your dbt_project.yml:
+dispatch:
+  - macro_namespace: audit_helper
+    search_order: ['jaffle_shop', 'audit_helper'] # 💡 Tells dbt to check your project, then fall back to the package itself!
